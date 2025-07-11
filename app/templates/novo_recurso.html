@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Recurso - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Criar Novo Recurso</h2>
+        <form action="/recursos/novo" method="post">
+            <label for="name">Nome do Recurso:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="type">Tipo de Recurso:</label>
+            <input type="text" id="type" name="type" required>
+
+            <label for="description">Descrição:</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+
+            <label for="quantity">Quantidade:</label>
+            <input type="number" id="quantity" name="quantity" value="0" required min="0">
+
+            <button type="submit" class="btn btn-primary">Criar Recurso</button>
+        </form>
+        <a href="/recursos" class="btn link-button" style="margin-top: 1rem;">← Voltar para Recursos</a>
+    </div>
+</body>
+</html>

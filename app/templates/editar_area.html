@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Área Restrita - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Área Restrita</h2>
+        <form action="/areas/{{ area.id }}/editar" method="post">
+            <label for="nome">Nome da Área:</label>
+            <input type="text" id="nome" name="nome" value="{{ area.nome }}" required>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" rows="4">{{ area.descricao }}</textarea>
+
+            <label for="acesso_liberado_para">Acesso Liberado Para (Roles):</label>
+            <select id="acesso_liberado_para" name="acesso_liberado_para" required>
+                <option value="administrador" {% if "administrador" in area.acesso_liberado_para %}selected{% endif %}>Administrador</option>
+                <option value="gerente" {% if "gerente" in area.acesso_liberado_para %}selected{% endif %}>Gerente</option>
+                <option value="usuario" {% if "usuario" in area.acesso_liberado_para %}selected{% endif %}>Usuário</option>
+                <option value="administrador,gerente" {% if "administrador,gerente" == area.acesso_liberado_para %}selected{% endif %}>Administrador e Gerente</option>
+                <option value="administrador,usuario" {% if "administrador,usuario" == area.acesso_liberado_para %}selected{% endif %}>Administrador e Usuário</option>
+                <option value="gerente,usuario" {% if "gerente,usuario" == area.acesso_liberado_para %}selected{% endif %}>Gerente e Usuário</option>
+                <option value="administrador,gerente,usuario" {% if "administrador,gerente,usuario" == area.acesso_liberado_para %}selected{% endif %}>Todos</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">Salvar Edição</button>
+        </form>
+        <a href="/areas" class="btn link-button" style="margin-top: 1rem;">← Voltar para Áreas Restritas</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Novo Alerta - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Criar Novo Alerta</h2>
+        <form action="/criar-alerta" method="post">
+            <label for="titulo">Título do Alerta:</label>
+            <input type="text" id="titulo" name="titulo" required>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" rows="5" required></textarea>
+
+            <label for="nivel">Nível de Severidade:</label>
+            <select id="nivel" name="nivel" required>
+                <option value="baixo">Baixo</option>
+                <option value="medio">Médio</option>
+                <option value="alto">Alto</option>
+                <option value="critico">Crítico</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">Criar Alerta</button>
+        </form>
+        <a href="/alertas" class="btn link-button" style="margin-top: 1rem;">← Voltar para Alertas</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Recursos - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container-wide">
+        <h2>Gerenciar Recursos</h2>
+        <p>Acompanhe e gerencie os recursos disponíveis na empresa.</p>
+
+        {% if role == "administrador" %}
+            <a href="/recursos/novo" class="btn btn-primary" style="margin-bottom: 20px;">+ Novo Recurso</a>
+        {% endif %}
+
+        {% if recursos %}
+            <div class="table-responsive">
+                <table class="data-table"> {# Usando data-table #}
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
+                            <th>Quantidade</th>
+                            <th>Status</th>
+                            {% if role == "administrador" %}
+                            <th>Ações</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recurso in recursos %}
+                        <tr>
+                            <td data-label="Nome:">{{ recurso.name }}</td>
+                            <td data-label="Tipo:">{{ recurso.type }}</td>
+                            <td data-label="Descrição:">{{ recurso.description }}</td>
+                            <td data-label="Quantidade:">{{ recurso.quantity }}</td>
+                            <td data-label="Status:">
+                                {% if recurso.is_active %}
+                                    Ativo
+                                {% else %}
+                                    Inativo
+                                {% endif %}
+                            </td>
+                            {% if role == "administrador" %}
+                            <td data-label="Ações:">
+                                <div class="table-actions">
+                                    <a href="/recursos/{{ recurso.id }}/editar" class="btn btn-warning">Editar</a>
+                                    <form method="post" action="/recursos/{{ recurso.id }}/excluir" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este recurso?');">
+                                        <button type="submit" class="btn btn-danger">Excluir</button>
+                                    </form>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>Nenhum recurso cadastrado no momento.</p>
+        {% endif %}
+
+        <a href="/dashboard" class="btn logout-button" style="margin-top: 2rem;">← Voltar ao Dashboard</a>
+    </div>
+</body>
+</html>

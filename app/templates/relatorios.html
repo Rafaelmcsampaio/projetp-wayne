@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios e Análises - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="container-wide relatorios-container"> 
+        <h2>Relatórios e Análises</h2>
+        <p>Visualize relatórios detalhados sobre os recursos e segurança da empresa.</p>
+
+        <section>
+            <h3>Resumo Geral</h3>
+            <ul>
+                <li><strong>Total de Alertas:</strong> {{ total_alertas if total_alertas is not none else 0 }}</li>
+                <li><strong>Alertas Críticos:</strong> <span style="color: var(--text-error-msg);">{{ alertas_criticos if alertas_criticos is not none else 0 }}</span></li>
+                <li><strong>Total de Recursos:</strong> {{ total_recursos if total_recursos is not none else 0 }}</li>
+                <li><strong>Total de Usuários:</strong> {{ total_usuarios if total_usuarios is not none else 0 }}</li>
+                <li><strong>Total de Áreas Restritas:</strong> {{ total_areas if total_areas is not none else 0 }}</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Gráfico de Dados</h3>
+            <canvas id="dataChart" width="400" height="200"
+                data-total-alertas="{{ total_alertas|int(default=0) }}"
+                data-alertas-criticos="{{ alertas_criticos|int(default=0) }}"
+                data-total-recursos="{{ total_recursos|int(default=0) }}"
+                data-total-usuarios="{{ total_usuarios|int(default=0) }}"
+                data-total-areas="{{ total_areas|int(default=0) }}"
+            ></canvas>
+        </section>
+
+        <a href="/dashboard" class="btn logout-button" style="margin-top: 2rem;">← Voltar ao Dashboard</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/relatorios.js"></script> 
+</body>
+</html>

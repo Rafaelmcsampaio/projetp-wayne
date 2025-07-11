@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área: {{ area.nome }} - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Bem-vindo à {{ area.nome }}</h2>
+        <p>Você, {{ user }}, tem acesso a esta área.</p>
+        
+        <h3>Detalhes da Área</h3>
+        <p><strong>Descrição:</strong> {{ area.descricao }}</p>
+        <p><strong>Acesso Permitido Para:</strong> {{ area.acesso_liberado_para }}</p>
+        <p><strong>Status:</strong> {% if area.is_ativa %}Ativa{% else %}Inativa{% endif %}</p>
+        <p><strong>Criada em:</strong> {{ area.data_criacao.strftime('%d/%m/%Y %H:%M') if area.data_criacao else 'N/A' }}</p>
+
+        <a href="/areas" class="btn link-button" style="margin-top: 2rem;">← Voltar para Áreas Restritas</a>
+    </div>
+</body>
+</html>

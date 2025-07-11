@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurar Permissões - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container-wide">
+        <h2>Configurar Permissões de Usuário</h2>
+        <p>Altere as funções (roles) dos usuários no sistema.</p>
+
+        {% if usuarios %}
+            <div class="table-responsive">
+                <table class="data-table"> {# Usando data-table #}
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Função Atual</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user_item in usuarios %} {# Renomeado para user_item para evitar conflito com 'user' logado #}
+                        <tr>
+                            <td data-label="Nome:">{{ user_item.full_name }}</td>
+                            <td data-label="Email:">{{ user_item.email }}</td>
+                            <td data-label="Função Atual:">{{ user_item.role|capitalize }}</td>
+                            <td data-label="Ações:">
+                                <div class="table-actions">
+                                    <form method="post" action="/permissoes/{{ user_item.id }}/alterar" style="display:inline;">
+                                        <label for="novo_role_{{ user_item.id }}" class="sr-only">Nova Função</label>
+                                        <select id="novo_role_{{ user_item.id }}" name="novo_role" style="display:inline-block; width:auto; margin-right: 5px; padding: 0.3rem 0.7rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid var(--border-dark); background-color: var(--bg-input); color: var(--text-light);"
+                                            {% if user_item.id == usuario_logado_id and user_item.role == "administrador" %}
+                                                title="Você não pode rebaixar a si mesmo de administrador"
+                                            {% endif %}
+                                        >
+                                            <option value="usuario" {% if user_item.role == 'usuario' %}selected{% endif %}>Usuário</option>
+                                            <option value="gerente" {% if user_item.role == 'gerente' %}selected{% endif %}>Gerente</option>
+                                            <option value="administrador" {% if user_item.role == 'administrador' %}selected{% endif %}>Administrador</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary" style="width:auto; display:inline-block; margin-top: 0;"
+                                            {% if user_item.id == usuario_logado_id and user_item.role == "administrador" %}
+                                                disabled title="Você não pode rebaixar a si mesmo de administrador"
+                                            {% endif %}
+                                        >
+                                            Alterar
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>Nenhum usuário cadastrado no sistema.</p>
+        {% endif %}
+
+        <a href="/dashboard" class="btn logout-button" style="margin-top: 2rem;">← Voltar ao Dashboard</a>
+    </div>
+</body>
+</html>

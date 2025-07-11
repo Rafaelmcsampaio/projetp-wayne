@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="container dashboard-box">
+        <h2>Bem-vindo, {{ user }}!</h2>
+        <p class="dashboard-welcome">Este é o seu painel de controle.</p>
+        
+        {# NOVO: Exibir a hora atual do servidor #}
+        {% if current_time %}
+            <p class="dashboard-welcome" style="font-size: 0.9em; margin-top: -10px;">
+                Hora atual do servidor: {{ current_time.strftime('%H:%M:%S - %d/%m/%Y') }}
+            </p>
+        {% endif %}
+
+        {# Loop para os recursos específicos da role #}
+        {% for recurso in recursos %}
+            <a href="{{ recurso.url }}" class="btn btn-primary">{{ recurso.nome }}</a>
+        {% endfor %}
+
+        {# Botão de Sair - mantém a classe logout-button específica #}
+        <a href="/logout" class="btn logout-button">Sair</a>
+    </div>
+</body>
+</html>

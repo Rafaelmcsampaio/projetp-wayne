@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Alerta - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Alerta</h2>
+        <form action="/alertas/{{ alerta.id }}/editar" method="post">
+            <label for="titulo">Título do Alerta:</label>
+            <input type="text" id="titulo" name="titulo" value="{{ alerta.titulo }}" required>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" rows="5" required>{{ alerta.descricao }}</textarea>
+
+            <label for="nivel">Nível de Severidade:</label>
+            <select id="nivel" name="nivel" required>
+                <option value="baixo" {% if alerta.nivel == 'baixo' %}selected{% endif %}>Baixo</option>
+                <option value="medio" {% if alerta.nivel == 'medio' %}selected{% endif %}>Médio</option>
+                <option value="alto" {% if alerta.nivel == 'alto' %}selected{% endif %}>Alto</option>
+                <option value="critico" {% if alerta.nivel == 'critico' %}selected{% endif %}>Crítico</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">Salvar Edição</button>
+        </form>
+        <a href="/alertas" class="btn link-button" style="margin-top: 1rem;">← Voltar para Alertas</a>
+    </div>
+</body>
+</html>

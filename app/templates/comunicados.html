@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Comunicados - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="container-wide">
+        <h2>Comunicados</h2>
+        <p>Aqui estão os comunicados importantes para todos os usuários.</p>
+
+        {% if role in ["administrador", "gerente"] %}
+            <a href="/comunicados/novo" class="btn btn-primary" style="margin-bottom: 20px;">+ Novo Comunicado</a>
+        {% endif %}
+
+        {% if comunicados %}
+            {% for c in comunicados %}
+                <div class="card-item"> {# Usando "card-item" para consistência #}
+                    <h3>{{ c.titulo }}</h3>
+                    <p><strong>Data:</strong> {{ c.data_criacao.strftime('%d/%m/%Y %H:%M') if c.data_criacao else 'Data não informada' }}</p>
+                    <p><strong>Autor:</strong> {{ c.criado_por }}</p>
+                    <p>{{ c.descricao }}</p>
+
+                    {% if role == "administrador" %}
+                        <div class="table-actions"> 
+                            <a href="/comunicados/{{ c.id }}/editar" class="btn btn-warning">Editar</a>
+                            <form method="post" action="/comunicados/{{ c.id }}/excluir" style="display:inline;" onsubmit="return confirm('Deseja excluir este comunicado?');">
+                                <button type="submit" class="btn btn-danger">Excluir</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Nenhum comunicado disponível no momento.</p>
+        {% endif %}
+
+        <a href="/dashboard" class="btn logout-button" style="margin-top: 2rem;">← Voltar ao Dashboard</a>
+    </div>
+</body>
+</html>

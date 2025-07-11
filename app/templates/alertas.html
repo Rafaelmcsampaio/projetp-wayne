@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alertas de Segurança - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="container-wide">
+        <h2>Alertas de Segurança</h2>
+        <p>Acompanhe e gerencie os alertas de segurança do sistema.</p>
+
+        {% if role in ["administrador", "gerente"] %}
+            <a href="/criar-alerta" class="btn btn-primary" style="margin-bottom: 20px;">+ Novo Alerta</a>
+        {% endif %}
+
+        {% if alertas %}
+            {% for alerta in alertas %}
+                <div class="card-item"> {# Usando "card-item" para consistência com o CSS #}
+                    <h3>{{ alerta.titulo }} - Nível: {{ alerta.nivel|capitalize }}</h3>
+                    <p><em>Criado por {{ alerta.criado_por }} em {{ alerta.data_criacao.strftime("%d/%m/%Y %H:%M") if alerta.data_criacao else "Data não informada" }}</em></p>
+                    <p>{{ alerta.descricao }}</p>
+
+                    {% if role in ["administrador", "gerente"] %}
+                        <div class="table-actions">
+                            <a href="/alertas/{{ alerta.id }}/editar" class="btn btn-warning">Editar</a>
+                            <form method="post" action="/alertas/{{ alerta.id }}/excluir" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este alerta?');">
+                                <button type="submit" class="btn btn-danger">Excluir</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Nenhum alerta disponível no momento.</p>
+        {% endif %}
+
+        <a href="/dashboard" class="btn logout-button" style="margin-top: 2rem;">← Voltar ao Dashboard</a>
+    </div>
+</body>
+</html>

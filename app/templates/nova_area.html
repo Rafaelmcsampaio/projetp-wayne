@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Nova Área Restrita - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Criar Nova Área Restrita</h2>
+        {# Conditionally display messages from the backend #}
+        {% if message %}
+            <p class="message {% if message_type %}{{ message_type }}{% endif %}">
+                {{ message }}
+            </p>
+        {% endif %}
+
+        <form action="/areas/nova" method="post">
+            <fieldset>
+                <legend class="sr-only">Detalhes da Nova Área</legend>
+
+                <label for="nome">Nome da Área:</label>
+                <input type="text" id="nome" name="nome" required aria-describedby="nome-help">
+                <small id="nome-help" class="form-text">Ex: "Laboratório de Pesquisa", "Sala de Segurança Nível 3"</small>
+
+                <label for="descricao">Descrição (opcional):</label>
+                <textarea id="descricao" name="descricao" rows="4" aria-describedby="descricao-help"></textarea>
+                <small id="descricao-help" class="form-text">Uma breve descrição sobre a finalidade e o que contém na área.</small>
+
+                <label for="acesso_liberado_para">Acesso Liberado Para (Perfis):</label>
+                <select id="acesso_liberado_para" name="acesso_liberado_para" required aria-describedby="acesso-help">
+                    <option value="">Selecione um ou mais perfis</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="gerente">Gerente</option>
+                    <option value="usuario">Usuário</option>
+                    <option value="administrador,gerente">Administrador e Gerente</option>
+                    <option value="administrador,usuario">Administrador e Usuário</option>
+                    <option value="gerente,usuario">Gerente e Usuário</option>
+                    <option value="administrador,gerente,usuario">Todos (Administrador, Gerente, Usuário)</option>
+                </select>
+                <small id="acesso-help" class="form-text">Defina quais perfis de usuário terão acesso a esta área. Você pode selecionar múltiplos perfis separados por vírgula.</small>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary">Criar Área</button>
+        </form>
+
+        <a href="/areas" class="btn link-button" style="margin-top: 1rem;">← Voltar para Áreas Restritas</a>
+    </div>
+</body>
+</html>

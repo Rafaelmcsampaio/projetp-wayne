@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Recurso - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Recurso</h2>
+        <form action="/recursos/{{ recurso.id }}/editar" method="post">
+            <label for="name">Nome do Recurso:</label>
+            <input type="text" id="name" name="name" value="{{ recurso.name }}" required>
+
+            <label for="type">Tipo de Recurso:</label>
+            <input type="text" id="type" name="type" value="{{ recurso.type }}" required>
+
+            <label for="description">Descrição:</label>
+            <textarea id="description" name="description" rows="4">{{ recurso.description }}</textarea>
+
+            <label for="quantity">Quantidade:</label>
+            <input type="number" id="quantity" name="quantity" value="{{ recurso.quantity }}" required min="0">
+
+            <button type="submit" class="btn btn-primary">Salvar Edição</button>
+        </form>
+        <a href="/recursos" class="btn link-button" style="margin-top: 1rem;">← Voltar para Recursos</a>
+    </div>
+</body>
+</html>

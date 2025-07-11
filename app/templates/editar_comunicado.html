@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Comunicado - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Comunicado</h2>
+        <form action="/comunicados/{{ comunicado.id }}/editar" method="post">
+            <label for="titulo">Título do Comunicado:</label>
+            <input type="text" id="titulo" name="titulo" value="{{ comunicado.titulo }}" required>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" rows="5" required>{{ comunicado.descricao }}</textarea>
+
+            <button type="submit" class="btn btn-primary">Salvar Edição</button>
+        </form>
+        <a href="/comunicados" class="btn link-button" style="margin-top: 1rem;">← Voltar para Comunicados</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áreas Restritas - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container-wide">
+        <h2>Gerenciar Áreas Restritas</h2>
+        <p>Acesse ou gerencie as áreas restritas da indústria.</p>
+
+        {% if role == "administrador" %}
+            <a href="/areas/nova" class="btn btn-primary" style="margin-bottom: 20px;">+ Nova Área Restrita</a>
+        {% endif %}
+
+        {% if areas %}
+            {% for area in areas %}
+                <div class="card-item"> {# Usando "card-item" #}
+                    <h3>{{ area.nome }}</h3>
+                    <p><strong>Descrição:</strong> {{ area.descricao }}</p>
+                    <p><strong>Acesso Liberado Para:</strong> {{ area.acesso_liberado_para }}</p>
+                    <p><strong>Status:</strong> {% if area.is_ativa %}Ativa{% else %}Inativa{% endif %}</p>
+                    <p><strong>Criada em:</strong> {{ area.data_criacao.strftime('%d/%m/%Y %H:%M') if area.data_criacao else 'N/A' }}</p>
+
+                    <div class="table-actions"> {# Para agrupar botões #}
+                        <a href="/areas/{{ area.id }}/entrar" class="btn btn-success">Entrar na Área</a>
+                        {% if role == "administrador" %}
+                            <a href="/areas/{{ area.id }}/editar" class="btn btn-warning">Editar</a>
+                            <form method="post" action="/areas/{{ area.id }}/excluir" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir esta área restrita?');">
+                                <button type="submit" class="btn btn-danger">Excluir</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Nenhuma área restrita cadastrada no momento.</p>
+        {% endif %}
+
+        <a href="/dashboard" class="btn logout-button" style="margin-top: 2rem;">← Voltar ao Dashboard</a>
+    </div>
+</body>
+</html>

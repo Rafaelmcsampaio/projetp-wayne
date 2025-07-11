@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Equipe - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container-wide">
+        <h2>Gerenciar Equipe</h2>
+        <p>Visão geral e ações sobre os membros da equipe.</p>
+
+        {% if equipe %}
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Função</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for membro in equipe %}
+                        <tr>
+                            <td data-label="Nome:">{{ membro.full_name }}</td>
+                            <td data-label="Email:">{{ membro.email }}</td>
+                            <td data-label="Função:">{{ membro.role|capitalize }}</td>
+                            <td data-label="Status:">
+                                {% if membro.is_active %}
+                                    Ativo
+                                {% else %}
+                                    Inativo
+                                {% endif %}
+                            </td>
+                            <td data-label="Ações:">
+                                <div class="table-actions">
+                                    {# Botão para desativar/ativar #}
+                                    <form method="post" action="/equipe/{{ membro.id }}/alternar-status" style="display:inline;" 
+                                          
+                                        <button type="submit" class="btn {% if membro.is_active %}btn-warning{% else %}btn-success{% endif %}" {% if membro.id == usuario_logado_id %}disabled title="Você não pode alterar seu próprio status por aqui"{% endif %}>
+                                            {{ "Desativar" if membro.is_active else "Ativar" }}
+                                        </button>
+                                    </form>
+
+                                    {% if role == "administrador" %} {# Apenas administradores podem excluir #}
+                                        <form method="post" action="/equipe/{{ membro.id }}/excluir" style="display:inline;" 
+                                              onsubmit="return confirmAction('Tem certeza que deseja excluir este membro?');"> {# CORRIGIDO: Comentário removido #}
+                                            <button type="submit" class="btn btn-danger" {% if membro.id == usuario_logado_id %}disabled title="Você não pode excluir sua própria conta"{% endif %}>
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>Nenhum membro na equipe.</p>
+        {% endif %}
+
+        <a href="/dashboard" class="btn logout-button" style="margin-top: 2rem;">← Voltar ao Dashboard</a>
+    </div>
+
+    {# CORRIGIDO: Incluir o arquivo JavaScript no final do body #}
+    <script src="/static/js/confirm_actions.js"></script>
+</body>
+</html>

@@ -1,0 +1,528 @@
+
+/* --- Variáveis CSS (Melhora a manutenibilidade) --- */
+:root {
+    --bg-dark: #121212; /* Fundo principal */
+    --bg-container: #1e1e1e; /* Fundo dos containers */
+    --bg-element: #292929; /* Fundo de itens da lista/cards */
+    --bg-input: #2b2b2b; /* Fundo dos campos de input */
+
+    --text-light: #e0e0e0; /* Texto geral claro */
+    --text-medium: #a0a0a0; /* Texto secundário/rótulos */
+    --text-accent: #3399ff; /* Cor de destaque (azul) */
+    --text-strong-accent: #aad4ff; /* Cor de destaque mais forte */
+    --text-error-msg: #ff6666; /* Cor de erro para mensagens (texto) */
+    --text-success-msg: #28a745; /* Cor de sucesso para mensagens (fundo) */
+    --text-info-msg: #17a2b8; /* Cor de informação (um tipo de azul/ciano) */
+    --text-warning-msg: #ffc107; /* Cor de aviso (laranja/amarelo) */
+
+    --shadow-primary: rgba(0, 85, 255, 0.7); /* Sombra principal */
+    --shadow-inset: rgba(0, 0, 0, 0.5); /* Sombra interna para elementos */
+
+    --border-dark: #444; /* Borda escura */
+    --border-light: #ccc; /* Borda clara (para tabelas) */
+
+    --btn-primary: #3399ff; /* Cor do botão principal */
+    --btn-primary-hover: #2673cc;
+    --btn-danger: #dc3545; /* Cor do botão de perigo (excluir) */
+    --btn-danger-hover: #c82333;
+    --btn-warning: #ecc646; /* Cor do botão de aviso (amarelo/laranja) */
+    --btn-warning-hover: #ec971f;
+    --btn-success: #28a745; /* Cor do botão de sucesso (acessar/ativar) */
+    --btn-success-hover: #218838;
+    --link-button-color: #c400f0; 
+
+    --radius-small: 5px;
+    --radius-medium: 6px;
+    --radius-large: 10px;
+
+    --spacing-xs: 0.3rem;
+    --spacing-sm: 0.6rem;
+    --spacing-md: 0.7rem;
+    --spacing-lg: 0.8rem;
+    --spacing-xl: 1rem;
+    --spacing-xxl: 1.2rem;
+    --spacing-3xl: 1.5rem;
+    --spacing-4xl: 2rem;
+}
+
+/* --- Reset Básico e Estilos Globais --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    min-height: 100vh;
+    padding: var(--spacing-4xl) 0; 
+}
+
+
+/* --- Containers --- */
+.container,
+.container-wide {
+    background-color: var(--bg-container);
+    border-radius: var(--radius-large);
+    padding: var(--spacing-4xl);
+    box-shadow: 0 0 15px var(--shadow-primary);
+    margin: 0 auto; 
+    color: var(--text-light); 
+}
+
+.container {
+    width: 360px;
+    max-width: 90vw; 
+}
+
+.container-wide {
+    width: fit-content; 
+    max-width: 90vw; 
+    min-width: 360px; 
+}
+
+/* --- Títulos --- */
+h2 {
+    margin-bottom: var(--spacing-3xl);
+    text-align: center;
+    color: var(--text-accent);
+}
+
+h3 {
+    color: var(--text-accent);
+    margin-bottom: var(--spacing-xxl);
+}
+
+/* --- Formulários Gerais --- */
+form label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--text-medium);
+}
+
+form input[type="email"],
+form input[type="password"],
+form input[type="text"],
+form input[type="number"],
+form textarea,
+form select {
+    width: 100%;
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-xxl);
+    border-radius: var(--radius-small);
+    border: none;
+    background-color: var(--bg-input);
+    color: var(--text-light);
+    font-size: var(--spacing-xl);
+    resize: vertical; 
+}
+
+form input::placeholder,
+form textarea::placeholder {
+    color: #777; 
+}
+
+/* --- Botões Gerais --- */
+.btn { /* Classe geral para botões - aplica estilos base */
+    display: block; 
+    width: 100%; 
+    padding: var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-small);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    text-align: center;
+    text-decoration: none; 
+    color: white; /* Cor padrão para texto de botão, geralmente branco */
+    margin-top: var(--spacing-xl); 
+}
+
+/* Estilos de hover e active para todos os botões */
+.btn:hover {
+    transform: translateY(-1px); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0); 
+    box-shadow: none;
+}
+
+/* Variações de cor dos botões (aplicar estas classes no HTML junto com .btn) */
+.btn-primary {
+    background-color: var(--btn-primary);
+}
+.btn-primary:hover {
+    background-color: var(--btn-primary-hover);
+}
+
+.btn-danger {
+    background-color: var(--btn-danger);
+}
+.btn-danger:hover {
+    background-color: var(--btn-danger-hover);
+}
+
+.btn-warning {
+    background-color: var(--btn-warning);
+}
+.btn-warning:hover:not(:disabled) {
+    background-color: var(--btn-warning-hover);
+}
+.btn-warning:disabled {
+    background-color: #e2c29d; 
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-success {
+    background-color: var(--btn-success);
+}
+.btn-success:hover {
+    background-color: var(--btn-success-hover);
+}
+
+/* NOVO: Estilo para botão secundário (se quiser usar) */
+.btn-secondary {
+    background-color: #6c757d; /* Cinza */
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+
+/* Estilo específico para o botão de logout (que usa cor de perigo) */
+.logout-button {
+    background-color: var(--btn-danger); 
+}
+.logout-button:hover {
+    background-color: var(--btn-danger-hover);
+}
+
+
+/* Links estilizados como botão ("Voltar", etc.) */
+.link-button {
+    display: inline-block;
+    margin-top: var(--spacing-xl);
+    color: var(--link-button-color); 
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.link-button:hover {
+    text-decoration: underline;
+}
+
+/* --- Mensagens de Feedback (Success, Error, Info, Warning) --- */
+.message {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    padding: 0.7rem;
+    border-radius: var(--radius-small);
+    font-weight: 600;
+}
+.message.success {
+    color: white; 
+    background-color: var(--text-success-msg);
+}
+.message.error {
+    color: white; 
+    background-color: var(--text-error-msg);
+}
+.message.info {
+    color: white; 
+    background-color: var(--text-info-msg);
+}
+.message.warning {
+    color: black; 
+    background-color: var(--text-warning-msg);
+}
+
+/* --- Dashboard --- */
+.dashboard-welcome {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+    color: var(--text-accent);
+}
+
+.resource-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.resource-list li {
+    background-color: var(--bg-element);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-radius: var(--radius-medium);
+    box-shadow: inset 0 0 5px var(--shadow-inset);
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+/* --- Tabelas (Geral: Usuários, Equipe, Solicitações, etc.) --- */
+.table-responsive { 
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: var(--spacing-4xl);
+}
+
+.data-table { 
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; 
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid var(--border-dark);
+    padding: var(--spacing-lg);
+    text-align: left;
+    word-break: break-word; 
+    max-width: 250px; 
+}
+
+.data-table th {
+    background-color: #34495e; 
+    color: white;
+    font-weight: 700;
+}
+
+.data-table td {
+    background-color: var(--bg-container); 
+    color: var(--text-light);
+}
+
+/* --- Botões de Ação na Tabela (Ajustes para inline) --- */
+.table-actions {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 8px; 
+    justify-content: flex-start; 
+}
+
+.table-actions .btn { 
+    width: auto; 
+    min-width: 80px; 
+    padding: 0.3rem 0.7rem;
+    font-size: 0.85rem;
+    margin-top: 0; 
+    display: inline-block; 
+}
+
+.table-actions form { 
+    display: inline-block; 
+    margin: 0; 
+}
+
+/* --- Cartões de Áreas Restritas e Comunicados (Unified under card-item) --- */
+.card-item { /* Consolida area-card e comunicado-card */
+    background-color: var(--bg-element);
+    border: 1px solid var(--border-dark);
+    border-left: 6px solid var(--text-accent); 
+    border-radius: var(--radius-medium);
+    padding: 15px;
+    margin-bottom: var(--spacing-4xl); 
+    box-shadow: inset 0 0 10px var(--shadow-inset);
+    max-width: 600px; 
+}
+
+.card-item h3 { /* Consolida h3 de cards */
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-accent);
+}
+
+.card-item p { /* Consolida p de cards */
+    margin-bottom: var(--spacing-md);
+    color: var(--text-medium);
+    word-wrap: break-word;
+}
+
+.card-item strong { /* Consolida strong de cards */
+    font-weight: 700;
+    color: var(--text-strong-accent); 
+}
+
+/* --- Botões de Ação para Cards (Acessar, Nova Área, etc.) --- */
+.btn-acessar, .btn-nova-area {
+    display: inline-block;
+    width: auto; 
+    padding: 8px 14px; 
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    border: none;
+    text-align: center;
+    margin-top: 10px; 
+    color: #fff; 
+}
+
+.btn-acessar {
+    background-color: var(--btn-success); 
+}
+.btn-acessar:hover {
+    background-color: var(--btn-success-hover);
+}
+.btn-nova-area {
+    background-color: var(--btn-primary); 
+}
+.btn-nova-area:hover {
+    background-color: var(--btn-primary-hover);
+}
+
+.relatorios-container section { 
+    margin-bottom: 30px;
+    border-top: 1px solid var(--border-dark); 
+    padding-top: 20px;
+}
+
+.relatorios-container ul { 
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.relatorios-container ul li { 
+    background-color: var(--bg-element); 
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    color: var(--text-light); 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.relatorios-container ul li strong { 
+    color: var(--text-strong-accent); 
+}
+
+.relatorios-container canvas { 
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border-dark); 
+    border-radius: 5px;
+    padding: 10px;
+    background-color: var(--bg-container); 
+}
+
+
+/* --- Responsividade Geral --- */
+@media (max-width: 768px) {
+    body {
+        padding: var(--spacing-3xl) var(--spacing-xl); 
+    }
+
+    .container {
+        padding: var(--spacing-3xl);
+    }
+
+    .container-wide {
+        padding: var(--spacing-3xl);
+    }
+
+    .data-table th,
+    .data-table td {
+        font-size: 14px;
+        padding: var(--spacing-md);
+    }
+    
+    .data-table {
+        min-width: unset; 
+    }
+
+    .table-actions .btn {
+        min-width: unset; 
+    }
+}
+
+@media (max-width: 500px) {
+    .container, .container-wide {
+        padding: var(--spacing-xl);
+    }
+
+    h2, h3 {
+        margin-bottom: var(--spacing-xxl);
+        font-size: 1.5rem;
+    }
+
+    form input, form textarea, form select, .btn {
+        font-size: 0.95rem;
+        padding: 0.5rem;
+    }
+
+    /* Regras específicas para tabelas em telas muito pequenas (empilhamento de células) */
+    .data-table,
+    .data-table thead,
+    .data-table tbody,
+    .data-table th,
+    .data-table td,
+    .data-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .data-table tr {
+        margin-bottom: 15px;
+        background-color: var(--bg-container);
+        border: 1px solid var(--border-dark);
+        border-radius: var(--radius-medium);
+        padding: 10px;
+        box-shadow: 0 0 5px var(--shadow-inset);
+    }
+
+    .data-table td {
+        border: none;
+        position: relative;
+        padding-left: 50%; 
+        text-align: right;
+        background-color: transparent;
+        color: var(--text-light);
+        white-space: normal;
+        max-width: none;
+    }
+
+    .data-table td::before {
+        content: attr(data-label); 
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        color: var(--text-accent);
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .data-table th {
+        display: none; 
+    }
+
+    .area-card {
+        max-width: 100%;
+        padding: 12px;
+    }
+
+    .table-actions {
+        flex-direction: column; /* Empilha botões em telas pequenas */
+        align-items: stretch; /* Estica os botões para largura total */
+        gap: 5px; /* Reduz o espaçamento entre botões empilhados */
+    }
+
+    .table-actions .btn {
+        width: 100%; /* Botões da tabela ocupam 100% da largura */
+        margin-top: 0;
+    }
+}

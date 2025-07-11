@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitar Acesso a Áreas - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="container">
+        <h2>Solicitar Acesso a Áreas</h2>
+        <p>Escolha uma área da indústria para solicitar acesso controlado.</p>
+
+        <a href="/dashboard" class="btn logout-button" style="margin-top: 2rem;">← Voltar ao Dashboard</a>
+
+        {# Mensagens de feedback do backend #}
+        {% if message %}
+            <p class="message {{ message_type }}">{{ message }}</p>
+        {% endif %}
+
+        <form method="post" action="/solicitacoes/nova"> {# action do formulário para o endpoint correto #}
+            <label for="area">Área desejada:</label>
+            <select name="area_id" id="area" required> {# name="area_id" para o backend esperar o ID #}
+                <option value="">-- Selecione uma Área --</option>
+                {% for area in areas_disponiveis %}
+                    {# value é o ID da área, e o texto visível é o NOME da área #}
+                    <option value="{{ area.id }}">{{ area.nome }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="justificativa">Justificativa:</label>
+            <textarea name="justificativa" id="justificativa" rows="4" required></textarea>
+
+            <button type="submit" class="btn btn-primary">Enviar Solicitação</button>
+        </form>
+    </div>
+</body>
+</html>

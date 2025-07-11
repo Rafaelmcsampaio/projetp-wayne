@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gerenciar Usuários - Wayne Security</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="container-wide">
+        <h2>Gerenciar Usuários</h2>
+
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Função</th>
+                        <th>Status</th>
+                        {% if role == "administrador" %}
+                        <th>Ações</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td data-label="Nome:">{{ usuario.full_name }}</td>
+                        <td data-label="Email:">{{ usuario.email }}</td>
+                        <td data-label="Função:">{{ usuario.role|capitalize }}</td>
+                        <td data-label="Status:">
+                            {% if usuario.is_active %}
+                                Ativo
+                            {% else %}
+                                Inativo
+                            {% endif %}
+                        </td>
+                        {% if role == "administrador" %}
+                        <td data-label="Ações:">
+                            <div class="table-actions">
+                                {# Botão para desativar/ativar #}
+                                <form method="post" action="/usuarios/{{ usuario.id }}/{{ 'desativar' if usuario.is_active else 'ativar' }}" style="display:inline;"
+                                      {# CORRIGIDO: Chama a função JS externa #}
+                                      
+                                    <button type="submit" class="btn {% if usuario.is_active %}btn-warning{% else %}btn-success{% endif %}" {% if usuario.id == usuario_logado_id %}disabled title="Você não pode alterar seu próprio status por aqui"{% endif %}>
+                                        {{ "Desativar" if usuario.is_active else "Ativar" }}
+                                    </button>
+                                </form>
+
+                                {# Botão para excluir #}
+                                <form method="post" action="/usuarios/{{ usuario.id }}/excluir" style="display:inline;"
+                                      {# CORRIGIDO: Chama a função JS externa #}
+                                      onsubmit="return confirmAction('Tem certeza que deseja excluir este usuário?');">
+                                    <button type="submit" class="btn btn-danger" {% if usuario.id == usuario_logado_id %}disabled title="Você não pode excluir sua própria conta"{% endif %}>
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="/dashboard" class="btn logout-button" style="margin-top:20px;">← Voltar ao Dashboard</a>
+    </div>
+
+    {# CORRIGIDO: Incluir o arquivo JavaScript no final do body #}
+    <script src="/static/js/confirm_actions.js"></script>
+</body>
+</html>
